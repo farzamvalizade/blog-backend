@@ -1,7 +1,7 @@
 import warnings
 from typing import Literal
 
-from pydantic import HttpUrl
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -26,9 +26,14 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER: str = "admin@dev.com"
     FIRST_SUPERUSER_PASSWORD: str = "Test@1234"
 
-    SENTRY_DSN: HttpUrl | None = None
-
     BACKEND_CORS_ORIGINS: list[str] = []
+
+    @field_validator("DATABASE_URL")
+    @classmethod
+    def use_psycopg_driver(cls, value: str) -> str:
+        if value.startswith("postgresql://"):
+            return value.replace("postgresql://", "postgresql+psycopg://", 1)
+        return value
 
     def _check_secret(self, name: str, value: str) -> None:
         if value == "changethis":
