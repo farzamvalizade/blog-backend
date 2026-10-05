@@ -1,5 +1,4 @@
 import uuid
-from collections.abc import Generator
 from typing import Annotated
 
 import jwt
@@ -14,19 +13,14 @@ from app.auth.models import User
 from app.auth.schemas import TokenPayload
 from app.core import security
 from app.core.config import settings
-from app.core.db import engine
+from app.core.db import get_session
 
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_STR}/auth/login"
 )
 
 
-def get_db() -> Generator[Session]:
-    with Session(engine) as session:
-        yield session
-
-
-SessionDep = Annotated[Session, Depends(get_db)]
+SessionDep = Annotated[Session, Depends(get_session)]
 TokenDep = Annotated[str, Depends(oauth2_scheme)]
 
 

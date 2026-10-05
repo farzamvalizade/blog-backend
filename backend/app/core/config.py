@@ -21,7 +21,7 @@ class Settings(BaseSettings):
 
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
 
-    DATABASE_URL: str = "sqlite:///./blog.db"
+    DATABASE_URL: str = "postgresql+psycopg://blog:blog_dev_password@localhost:5432/blog"
 
     FIRST_SUPERUSER: str = "admin@dev.com"
     FIRST_SUPERUSER_PASSWORD: str = "Test@1234"

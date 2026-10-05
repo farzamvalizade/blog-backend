@@ -4,6 +4,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Query, status
 
 from app.api.deps import SessionDep, get_current_superuser
+from app.api.schemas import Message
 from app.categories import repository, service
 from app.categories.schemas import (
     CategoriesPublic,
@@ -11,7 +12,6 @@ from app.categories.schemas import (
     CategoryPublic,
     CategoryUpdate,
 )
-from app.models import Message
 
 router = APIRouter(prefix="/categories", tags=["categories"])
 admin_router = APIRouter(dependencies=[Depends(get_current_superuser)])

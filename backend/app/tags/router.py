@@ -4,7 +4,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Query, status
 
 from app.api.deps import SessionDep, get_current_superuser
-from app.models import Message
+from app.api.schemas import Message
 from app.tags import repository, service
 from app.tags.schemas import TagCreate, TagPublic, TagsPublic, TagUpdate
 

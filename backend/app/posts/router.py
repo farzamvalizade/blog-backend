@@ -4,8 +4,8 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Query, status
 
 from app.api.deps import CurrentSuperuser, SessionDep, get_current_superuser
+from app.api.schemas import Message
 from app.core.exceptions import ResourceNotFoundError
-from app.models import Message
 from app.posts import repository, service
 from app.posts.schemas import PostCreate, PostPublic, PostsPublic, PostUpdate
 
